@@ -15,12 +15,12 @@ public class ReaderFile {
         if (!fileIn.exists()) throw new FileNotFoundException();
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(fileIn)))) {
-            String line = reader.readLine();
-            while (line != null) {
+            String sourceLine = reader.readLine();
+            while (sourceLine != null) {
                 for(sourceLineHandler handler : listHandler){
-                    handler.takeLine(line);
+                    handler.takeSourceLine(sourceLine);
                 }
-                line = reader.readLine();
+                sourceLine = reader.readLine();
             }
         } catch (IOException e) {
             throw new IOException(e);
