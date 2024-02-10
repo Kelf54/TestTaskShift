@@ -1,5 +1,5 @@
 package org.kelf54.model;
 
-public interface sourceLineHandler {
+public interface SourceLineHandler {
     void takeSourceLine(String line);
 }
