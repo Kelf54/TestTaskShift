@@ -1,9 +1,15 @@
 package org.kelf54.model;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ReaderFile {
+    List<sourceLineHandler> listHandler = new ArrayList<>();
     public ReaderFile(){}
+    public void addHandler (sourceLineHandler handler){
+        listHandler.add(handler);
+    }
     public void readFile(String patch) throws IOException {
         File fileIn = new File(patch);
         if (!fileIn.exists()) throw new FileNotFoundException();
@@ -11,12 +17,8 @@ public class ReaderFile {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(fileIn)))) {
             String line = reader.readLine();
             while (line != null) {
-                if (line.matches("\\d+")) { // целые числа
-                    //listInteger.add(Integer.parseInt(line));
-                } else if (line.matches("[+-]*\\d+[.,]\\d+")) { // вещественные числа
-                    //listFloat.add(Float.parseFloat(line));
-                } else { // строка
-                    //listString.add(line);
+                for(sourceLineHandler handler : listHandler){
+                    handler.takeLine(line);
                 }
                 line = reader.readLine();
             }
