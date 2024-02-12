@@ -14,19 +14,19 @@ public class ParserString implements SourceLineHandler {
     }
     public void parseData(String line){
         DataType dataType;
-        Object data;
+        //Object data;
         if (line.matches("\\d+")) { // целые числа
             dataType = DataType.INTEGER;
-            data = Integer.parseInt(line);
+            //data = Integer.parseInt(line);
         } else if (line.matches("([+-]*\\d+[.,]\\d+)(E-\\d+)?")) { // вещественные числа
             dataType = DataType.REAL;
-            data = Double.parseDouble(line);
+            //data = Double.parseDouble(line);
         } else { // строка
             dataType = DataType.STRING;
-            data = line;
+            //data = line;
         }
         for (ProcessedDataHandler handler : listHandler){
-            handler.takeProcessedData(dataType,data);
+            handler.takeProcessedData(dataType,line);
         }
     }
 }
