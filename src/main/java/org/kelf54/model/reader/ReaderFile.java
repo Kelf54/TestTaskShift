@@ -1,4 +1,6 @@
-package org.kelf54.model;
+package org.kelf54.model.reader;
+
+import org.kelf54.model.common.SourceLineHandler;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -14,14 +16,12 @@ public class ReaderFile {
         listHandler.add(handler);
     }
 
-    public void readFile(List<String> listPatch) throws IOException {
-        for (String patch : listPatch) {
-
+    public void readFile(List<String> listFilePatches) {
+        for (String patch : listFilePatches) {
             try {
                 File fileIn = new File(patch);
                 if (!fileIn.exists()) throw new FileNotFoundException();
-
-                try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(fileIn)))) {
+                try (BufferedReader reader = new BufferedReader(new FileReader(fileIn))) {
                     String sourceLine = reader.readLine();
                     while (sourceLine != null) {
                         for (SourceLineHandler handler : listHandler) {
@@ -33,7 +33,7 @@ public class ReaderFile {
             } catch (FileNotFoundException e) {
                 System.out.printf("File %s not exist%n", patch);
             } catch (IOException e) {
-                throw new IOException(e);
+                System.out.printf("Unexpected error reading file %s%n", patch);
             }
         }
     }

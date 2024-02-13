@@ -1,19 +1,19 @@
 package org.kelf54.model.writer;
 
-import org.kelf54.model.DataType;
-import org.kelf54.model.ProcessedDataHandler;
+import org.kelf54.model.common.DataType;
+import org.kelf54.model.common.ProcessedDataHandler;
 
 import java.io.IOException;
 import java.util.HashMap;
 
 public class ManagerOutFile implements ProcessedDataHandler, AutoCloseable {
     private final HashMap<DataType, WriterData> mapWriterOutFile = new HashMap<>();
-    private final boolean flagAppend;
-    private final String patch;
+    private final boolean isAppendToFile;
+    private final String filePatch;
 
-    public ManagerOutFile(String prefix, String patch, boolean flagAppend) {
-        this.flagAppend = flagAppend;
-        this.patch = prefix + patch;
+    public ManagerOutFile(String filePrefixName, String filePatch, boolean isAppendToFile) {
+        this.isAppendToFile = isAppendToFile;
+        this.filePatch = filePatch + filePrefixName;
     }
 
     @Override
@@ -21,9 +21,9 @@ public class ManagerOutFile implements ProcessedDataHandler, AutoCloseable {
         try {
             if (!mapWriterOutFile.containsKey(dataType)) {
                 switch (dataType) {
-                    case INTEGER -> mapWriterOutFile.put(DataType.INTEGER, new WriterInteger(patch, flagAppend));
-                    case REAL -> mapWriterOutFile.put(DataType.REAL, new WriterReal(patch, flagAppend));
-                    case STRING -> mapWriterOutFile.put(DataType.STRING, new WriterString(patch, flagAppend));
+                    case INTEGER -> mapWriterOutFile.put(DataType.INTEGER, new WriterInteger(filePatch, isAppendToFile));
+                    case REAL -> mapWriterOutFile.put(DataType.REAL, new WriterReal(filePatch, isAppendToFile));
+                    case STRING -> mapWriterOutFile.put(DataType.STRING, new WriterString(filePatch, isAppendToFile));
                 }
             }
             mapWriterOutFile.get(dataType).write(data);

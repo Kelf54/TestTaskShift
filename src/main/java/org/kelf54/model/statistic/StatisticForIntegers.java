@@ -1,22 +1,21 @@
 package org.kelf54.model.statistic;
 
-public class StatisticInteger extends StatisticNumbers<Long>{
-    public StatisticInteger(LevelOfStatistics levelOfStatistics) {
+public class StatisticForIntegers extends StatisticForNumbers<Long> {
+    public StatisticForIntegers(LevelOfStatistics levelOfStatistics) {
         super(levelOfStatistics);
     }
 
     @Override
     public void addToStatistic(String dataIn) {
         long data = Long.parseLong(dataIn);
-        count++;
-        if(levelOfStatistics == LevelOfStatistics.ADVANCED){
-            if(init){
-                min = Math.min(min,data);
-                max = Math.max(max,data);
+        countOfNumbers++;
+        if (levelOfStatistics == LevelOfStatistics.ADVANCED) {
+            if (countOfNumbers > 1) {
+                min = Math.min(min, data);
+                max = Math.max(max, data);
                 sum += data;
-                avg = sum/count;
-            }else {
-                init = true;
+                avg = sum / countOfNumbers;
+            } else {
                 min = data;
                 max = data;
                 sum = data;
@@ -30,8 +29,8 @@ public class StatisticInteger extends StatisticNumbers<Long>{
         String statistic = String.format("""
                 Integer numbers
                 Quantity -> %d
-                """, count);
-        if (levelOfStatistics == LevelOfStatistics.ADVANCED) {
+                """, countOfNumbers);
+        if (countOfNumbers > 0 && levelOfStatistics == LevelOfStatistics.ADVANCED) {
             statistic = statistic + String.format("""
                     min -> %d
                     max -> %d

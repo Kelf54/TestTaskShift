@@ -1,32 +1,35 @@
-package org.kelf54.model;
+package org.kelf54.model.parser;
+
+import org.kelf54.model.common.DataType;
+import org.kelf54.model.common.ProcessedDataHandler;
+import org.kelf54.model.common.SourceLineHandler;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ParserString implements SourceLineHandler {
     List<ProcessedDataHandler> listHandler = new ArrayList<>();
+
     public void addHandler(ProcessedDataHandler handler) {
         listHandler.add(handler);
     }
+
     @Override
     public void takeSourceLine(String line) {
         parseData(line);
     }
-    public void parseData(String line){
+
+    public void parseData(String line) {
         DataType dataType;
-        //Object data;
-        if (line.matches("\\d+")) { // целые числа
+        if (line.matches("[+-]?\\d+")) { // целые числа
             dataType = DataType.INTEGER;
-            //data = Integer.parseInt(line);
-        } else if (line.matches("([+-]*\\d+[.,]\\d+)(E-\\d+)?")) { // вещественные числа
+        } else if (line.matches("([+-]?\\d+[.,]\\d+)(E-\\d+)?")) { // вещественные числа
             dataType = DataType.REAL;
-            //data = Double.parseDouble(line);
         } else { // строка
             dataType = DataType.STRING;
-            //data = line;
         }
-        for (ProcessedDataHandler handler : listHandler){
-            handler.takeProcessedData(dataType,line);
+        for (ProcessedDataHandler handler : listHandler) {
+            handler.takeProcessedData(dataType, line);
         }
     }
 }
