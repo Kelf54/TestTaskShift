@@ -1,13 +1,13 @@
 package org.kelf54.model.statistic;
 
-public class StatisticInteger extends StatisticNumbers<Integer>{
+public class StatisticInteger extends StatisticNumbers<Long>{
     public StatisticInteger(LevelOfStatistics levelOfStatistics) {
         super(levelOfStatistics);
     }
 
     @Override
     public void addToStatistic(String dataIn) {
-        int data = Integer.parseInt(dataIn);
+        long data = Long.parseLong(dataIn);
         count++;
         if(levelOfStatistics == LevelOfStatistics.ADVANCED){
             if(init){
