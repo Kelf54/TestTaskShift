@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public class StatisticManager implements ProcessedDataHandler {
     private final HashMap<DataType, StatisticCollector> mapStatisticCollector = new HashMap<>();
-    LevelOfStatistics levelOfStatistics;
+    private final LevelOfStatistics levelOfStatistics;
 
     public StatisticManager(LevelOfStatistics levelOfStatistics) {
         this.levelOfStatistics = levelOfStatistics;

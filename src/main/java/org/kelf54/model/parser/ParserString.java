@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ParserString implements SourceLineHandler {
-    List<ProcessedDataHandler> listHandler = new ArrayList<>();
+    private final List<ProcessedDataHandler> listHandler = new ArrayList<>();
 
     public void addHandler(ProcessedDataHandler handler) {
         listHandler.add(handler);

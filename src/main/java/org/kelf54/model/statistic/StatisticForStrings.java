@@ -1,7 +1,7 @@
 package org.kelf54.model.statistic;
 
 public class StatisticForStrings implements StatisticCollector {
-    LevelOfStatistics levelOfStatistics;
+    private final LevelOfStatistics levelOfStatistics;
     private long countOfStrings = 0;
     private long lengthMinString;
     private long lengthMaxString;
